@@ -1,0 +1,114 @@
+<UserControl x:Class="HotelManagementSystem.Views.Pages.BookingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="{DynamicResource PageBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Page heading and actions -->
+        <DockPanel Grid.Row="0">
+            <StackPanel>
+                <TextBlock Text="Bookings &amp; Reservations"
+                           Style="{StaticResource PageTitle}"/>
+                <TextBlock Text="Search and manage guest stays."
+                           Foreground="{StaticResource MutedBrush}"/>
+            </StackPanel>
+
+            <StackPanel DockPanel.Dock="Right"
+                        Orientation="Horizontal">
+                <Button Content="Cycle demo status"
+                        Style="{StaticResource QuietButton}"
+                        Command="{Binding ReservationStatusCommand}"
+                        Margin="0,0,10,0"/>
+
+                <Button Content="+  New reservation"
+                        Style="{StaticResource PrimaryButton}"
+                        Command="{Binding NewBookingCommand}"/>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Search and filters -->
+        <Border Grid.Row="1"
+                Style="{StaticResource Card}"
+                Margin="0,25,0,0">
+            <DockPanel>
+                <TextBox x:Name="ReservationSearchBox"
+                         Width="270"
+                         Style="{StaticResource Field}"
+                         Text="{Binding ReservationSearch, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <ComboBox Width="145"
+                          Margin="12,0,0,0"
+                          Padding="9"
+                          SelectedIndex="0">
+                    <ComboBoxItem>All statuses</ComboBoxItem>
+                    <ComboBoxItem>Confirmed</ComboBoxItem>
+                    <ComboBoxItem>Pending</ComboBoxItem>
+                    <ComboBoxItem>Cancelled</ComboBoxItem>
+                </ComboBox>
+
+                <DatePicker Width="145" Margin="12,0,0,0"/>
+
+                <Button DockPanel.Dock="Right"
+                        Content="Export list"
+                        Style="{StaticResource QuietButton}"/>
+            </DockPanel>
+        </Border>
+
+        <!-- Room selection heading -->
+        <TextBlock Grid.Row="2"
+                   Text="Select a room by type"
+                   Style="{StaticResource SectionTitle}"
+                   Margin="0,8,0,12"/>
+
+        <!-- Room groups and reservation list -->
+        <ScrollViewer Grid.Row="3"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!--<ItemsControl ItemsSource="{Binding RoomGroups}"
+                              ItemTemplate="{StaticResource RoomTypeGroupTemplate}"/>-->
+
+                <Border Background="{StaticResource CardBrush}"
+                        CornerRadius="10"
+                        Padding="0"
+                        Margin="0,0,16,16">
+                    <StackPanel>
+                        <Border Background="#F8F9FB" Padding="12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition Width="1.6*"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition Width="95"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="REFERENCE" FontSize="10" FontWeight="Bold" Foreground="{StaticResource MutedBrush}"/>
+                                <TextBlock Grid.Column="1" Text="GUEST" FontSize="10" FontWeight="Bold" Foreground="{StaticResource MutedBrush}"/>
+                                <TextBlock Grid.Column="2" Text="ROOM" FontSize="10" FontWeight="Bold" Foreground="{StaticResource MutedBrush}"/>
+                                <TextBlock Grid.Column="3" Text="CHECK-IN" FontSize="10" FontWeight="Bold" Foreground="{StaticResource MutedBrush}"/>
+                                <TextBlock Grid.Column="4" Text="CHECK-OUT" FontSize="10" FontWeight="Bold" Foreground="{StaticResource MutedBrush}"/>
+                                <TextBlock Grid.Column="5" Text="GUESTS" FontSize="10" FontWeight="Bold" Foreground="{StaticResource MutedBrush}"/>
+                                <TextBlock Grid.Column="6" Text="STATUS" FontSize="10" FontWeight="Bold" Foreground="{StaticResource MutedBrush}"/>
+                                <TextBlock Grid.Column="7" Text="ACTIONS" FontSize="10" FontWeight="Bold" Foreground="{StaticResource MutedBrush}"/>
+                            </Grid>
+                        </Border>
+
+                        <!--<ItemsControl x:Name="ReservationGrid"
+                                      ItemsSource="{Binding AllBookings}"
+                                      ItemTemplate="{StaticResource BookingRow}"/>-->
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
