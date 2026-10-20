@@ -4,17 +4,17 @@ namespace HotelManagementSystem.Services.Reservations
 {
     class PrototypeReservationService : IReservationService
     {
-        public Task<PrototypeData.BookingPreview> CreateReservationAsync(CreateReservationRequest request, CancellationToken cancellationToken = default)
+        public Task<BookingPreview> CreateReservationAsync(CreateReservationRequest request, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IReadOnlyList<PrototypeData.RoomModel>> GetAvailableRoomsAsync(DateTime checkIn, DateTime checkOut, int guestCount, CancellationToken cancellationToken = default)
+        public Task<IReadOnlyList<RoomModel>> GetAvailableRoomsAsync(DateTime checkIn, DateTime checkOut, int guestCount, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IReadOnlyList<PrototypeData.BookingPreview>> GetBookingsAsync(CancellationToken cancellationToken = default)
+        public Task<IReadOnlyList<BookingPreview>> GetBookingsAsync(CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

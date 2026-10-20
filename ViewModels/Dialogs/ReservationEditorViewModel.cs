@@ -11,7 +11,7 @@ public partial class ReservationEditorViewModel : ViewModelBase
 {
     private readonly PrototypeData _prototypeData;
 
-    public ObservableCollection<PrototypeData.RoomModel> AvailableRooms
+    public ObservableCollection<RoomModel> AvailableRooms
     { get; } = [];
 
     [ObservableProperty]
@@ -27,12 +27,12 @@ public partial class ReservationEditorViewModel : ViewModelBase
     private int guestCount = 1;
 
     [ObservableProperty]
-    private PrototypeData.RoomModel? selectedRoom;
+    private RoomModel? selectedRoom;
 
     [ObservableProperty]
     private string? validationMessage;
 
-    public PrototypeData.BookingPreview? CreatedBooking { get; private set; }
+    public BookingPreview? CreatedBooking { get; private set; }
 
     // The Window listens to this event and closes itself.
     public event Action<bool>? RequestClose;
@@ -77,7 +77,7 @@ public partial class ReservationEditorViewModel : ViewModelBase
             ?? AvailableRooms.FirstOrDefault();
     }
 
-    private bool IsRoomAvailable(PrototypeData.RoomModel room)
+    private bool IsRoomAvailable(RoomModel room)
     {
         var maintenancePeriods = _prototypeData.MaintenancePeriods
             .Where(period => period.RoomNumber == room.Number)
@@ -165,7 +165,7 @@ public partial class ReservationEditorViewModel : ViewModelBase
 
         var reference = GenerateNextReference();
 
-        CreatedBooking = new PrototypeData.BookingPreview(
+        CreatedBooking = new BookingPreview(
             reference,
             GuestName.Trim(),
             SelectedRoom.Number,

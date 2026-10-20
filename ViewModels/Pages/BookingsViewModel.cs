@@ -19,10 +19,10 @@ public partial class BookingsViewModel : ViewModelBase
         "Cancelled"
     ];
 
-    public ObservableCollection<PrototypeData.BookingPreview> FilteredBookings { get; } = [];
+    public ObservableCollection<BookingPreview> FilteredBookings { get; } = [];
 
     [ObservableProperty]
-    private PrototypeData.BookingPreview? selectedBooking;
+    private BookingPreview? selectedBooking;
 
     [ObservableProperty]
     private string reservationSearch = string.Empty;
