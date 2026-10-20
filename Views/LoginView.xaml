@@ -1,0 +1,39 @@
+<UserControl x:Class="HotelManagementSystem.Views.LoginView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="{DynamicResource PageBrush}">
+    <Grid x:Name="LoginPanel" Background="{StaticResource NavyBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Margin="85" VerticalAlignment="Center">
+            <TextBlock Text="STAYWISE" Foreground="{StaticResource AccentBrush}" FontSize="18" FontWeight="Bold"/>
+            <TextBlock Text="Thoughtful stays.&#10;Seamless operations." Foreground="White" FontSize="42" FontWeight="SemiBold" Margin="0,25,0,18"/>
+            <TextBlock Text="A calm, clear workspace for every moment behind the front desk." Foreground="#B9C4D8" FontSize="16" Width="390" TextWrapping="Wrap"/>
+            <Border Height="1" Background="#41516D" Width="390" HorizontalAlignment="Left" Margin="0,42,0,22"/>
+            <TextBlock Text="HOTEL OPERATIONS PLATFORM  /  2026" Foreground="#8190A9" FontSize="11" FontWeight="SemiBold"/>
+        </StackPanel>
+            <Grid Grid.Column="1" Background="{DynamicResource PageBrush}">
+                <Border Width="410" Padding="38" Background="{StaticResource CardBrush}" CornerRadius="12" VerticalAlignment="Center">
+                    <StackPanel>
+                        <TextBlock Text="Welcome back" FontSize="28" FontWeight="SemiBold"/>
+                        <TextBlock Text="Sign in to your hotel workspace" Foreground="{StaticResource MutedBrush}" Margin="0,7,0,30"/>
+                        <TextBlock Text="Username" FontWeight="SemiBold" Margin="0,0,0,7"/>
+                        <TextBox x:Name="UsernameBox" Style="{StaticResource Field}" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Text="Password" FontWeight="SemiBold" Margin="0,20,0,7"/>
+                        <Grid>
+                            <PasswordBox x:Name="PasswordBox" Padding="11,9" BorderBrush="{StaticResource LineBrush}"/>
+                            <TextBox x:Name="PasswordTextBox" Style="{StaticResource Field}" Visibility="Collapsed"/>
+                        </Grid>
+                        <DockPanel Margin="0,14,0,25">
+                            <CheckBox Content="Remember me" Foreground="{StaticResource MutedBrush}"/>
+                            <TextBlock DockPanel.Dock="Right" Text="Forgot password?" Foreground="#4F8CC9"/>
+                        </DockPanel>
+                        <Button Content="Sign in to workspace" Style="{StaticResource PrimaryButton}" Height="44" Command="SignInCommand" />
+                        <TextBlock x:Name="LoginMessage" TextAlignment="Center" Foreground="#C85252" Margin="0,14,0,0"/>
+                    </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

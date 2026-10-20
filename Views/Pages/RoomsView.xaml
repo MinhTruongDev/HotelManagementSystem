@@ -1,0 +1,48 @@
+<UserControl x:Class="HotelManagementSystem.Views.Pages.RoomsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="{DynamicResource PageBrush}">
+    <Grid>
+        <DockPanel>
+            <StackPanel>
+                <TextBlock Text="Room management" Style="{StaticResource PageTitle}"/>
+                <TextBlock Text="Monitor room inventory and operational status." Foreground="{StaticResource MutedBrush}"/>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="+  Add floor" Style="{StaticResource QuietButton}"  Margin="0,0,10,0"/>
+                <Button Content="Edit floor" Style="{StaticResource QuietButton}"  Margin="0,0,10,0"/>
+                <Button Content="Edit room" Style="{StaticResource QuietButton}"  Margin="0,0,10,0"/>
+                <Button Content="Deactivate room" Style="{StaticResource QuietButton}" Margin="0,0,10,0"/>
+                <Button Content="+  Add room" Style="{StaticResource PrimaryButton}"/>
+            </StackPanel>
+        </DockPanel>
+        <Border Style="{StaticResource Card}" Margin="0,25,0,0">
+            <DockPanel>
+                <TextBox x:Name="RoomSearchBox" Width="280" Style="{StaticResource Field}" />
+                <ComboBox Width="150" Margin="12,0,0,0" Padding="9" SelectedIndex="0">
+                    <ComboBoxItem>All room types</ComboBoxItem>
+                    <ComboBoxItem>Standard</ComboBoxItem>
+                    <ComboBoxItem>Deluxe</ComboBoxItem>
+                    <ComboBoxItem>Suite</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Width="150" Margin="12,0,0,0" Padding="9" SelectedIndex="0">
+                    <ComboBoxItem>All statuses</ComboBoxItem>
+                    <ComboBoxItem>Available</ComboBoxItem>
+                    <ComboBoxItem>Occupied</ComboBoxItem>
+                    <ComboBoxItem>Maintenance</ComboBoxItem>
+                </ComboBox>
+            </DockPanel>
+        </Border>
+        <TextBlock Text="Room inventory" Style="{StaticResource SectionTitle}" Margin="0,4,0,8"/>
+        <DataGrid x:Name="RoomGrid" ItemsSource="{Binding Rooms}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ROOM" Binding="{Binding Number}" Width="90"/>
+                <DataGridTextColumn Header="FLOOR" Binding="{Binding Floor}" Width="80"/>
+                <DataGridTextColumn Header="TYPE" Binding="{Binding Type}" Width="*"/>
+                <DataGridTextColumn Header="CAPACITY" Binding="{Binding Capacity}" Width="100"/>
+                <DataGridTextColumn Header="PRICE / NIGHT" Binding="{Binding Price, StringFormat=C}" Width="125"/>
+                <DataGridTextColumn Header="STATUS" Binding="{Binding Status}" Width="140"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
