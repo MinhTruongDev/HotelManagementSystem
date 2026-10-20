@@ -1,6 +1,7 @@
 ﻿
 using HotelManagementSystem.Models;
 using HotelManagementSystem.Services.Navigation;
+using HotelManagementSystem.Services.Reservations;
 using HotelManagementSystem.ViewModels;
 using HotelManagementSystem.ViewModels.Pages;
 using HotelManagementSystem.Views;
@@ -20,7 +21,12 @@ namespace HotelManagementSystem
             var services = new ServiceCollection();
             ConfigureServices(services);
 
-            _serviceProvider = services.BuildServiceProvider();
+            _serviceProvider = services.BuildServiceProvider(
+                new ServiceProviderOptions
+                {
+                    ValidateOnBuild = true,
+                    ValidateScopes = true
+                });
 
             var mainWindow = _serviceProvider
                 .GetRequiredService<MainWindow>();
@@ -45,6 +51,10 @@ namespace HotelManagementSystem
             // Page ViewModels.
             services.AddSingleton<DashboardViewModel>();
             services.AddSingleton<BookingsViewModel>();
+            services.AddSingleton<PrototypeData>();
+
+            services.AddSingleton<IReservationService, PrototypeReservationService>();
+
             //services.AddSingleton<RoomsViewModel>();
             //services.AddSingleton<EmployeesViewModel>();
             //services.AddSingleton<AccountsViewModel>();
