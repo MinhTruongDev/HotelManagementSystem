@@ -42,11 +42,12 @@ public PrototypeData()
     public ObservableCollection<RoomModel> Rooms { get; } = new()
     {
         new("401", "4", "Standard King", "2", 145, "Ready"),
-        new("402", "4", "Deluxe Twin", "3", 205, "Occupied"),
+        new("402", "4", "Deluxe Twin", "3", 205, "Occupied", DateTime.Today.AddDays(2)),
         new("403", "4", "Standard Queen", "2", 125, "Needs Cleaning"),
         new("501", "5", "Executive Suite", "4", 390, "Ready"),
         new("502", "5", "Deluxe King", "2", 240, "Maintenance")
     };
+    public ObservableCollection<MaintenancePeriod> MaintenancePeriods { get; } = new();
     public ObservableCollection<string> Floors { get; } = new() { "4", "5" };
     public ObservableCollection<RoomTypeGroup> RoomGroups { get; } = new();
     public ObservableCollection<EmployeeModel> Employees { get; } = new()
@@ -67,25 +68,5 @@ public PrototypeData()
         RoomGroups.Clear();
         foreach (var group in Rooms.OrderBy(room => room.Type).ThenBy(room => room.Number).GroupBy(room => room.Type))
             RoomGroups.Add(new RoomTypeGroup(group.Key, group.ToList()));
-    }
-
-    public sealed record BookingPreview(
-        string Reference,
-        string Guest,
-        string Room,
-        DateTime CheckIn,
-        DateTime CheckOut,
-        int Guests,
-        string Status);
-    public sealed record RoomModel(string Number, string Floor, string Type, string Capacity, decimal Price, string Status);
-    public sealed record EmployeeModel(string Id, string Name, string Phone, string Email, string Position, string Status);
-    public sealed record AccountModel(string Id, string Username, string Employee, string Role, string Status);
-    public sealed class RoomTypeGroup
-    {
-        public string Title { get; }
-        public IReadOnlyList<RoomModel> Rooms { get; }
-        public int Count => Rooms.Count;
-        public string CountLabel => $"{Count} room{(Count == 1 ? "" : "s")}";
-        public RoomTypeGroup(string title, IReadOnlyList<RoomModel> rooms) { Title = title; Rooms = rooms; }
     }
 }
