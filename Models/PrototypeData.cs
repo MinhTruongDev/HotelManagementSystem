@@ -4,13 +4,40 @@ namespace HotelManagementSystem.Models;
 
 public sealed class PrototypeData
 {
-    public ObservableCollection<BookingPreview> RecentBookings { get; } = new()
+public PrototypeData()
+{
+    var today = DateTime.Today;
+
+    RecentBookings = new ObservableCollection<BookingPreview>
     {
-        new("BK-2048", "Amelia Rodriguez", "304", "12 Jun", "15 Jun", "2", "Confirmed"),
-        new("BK-2047", "Marcus Chen", "512", "12 Jun", "14 Jun", "1", "Confirmed"),
-        new("BK-2046", "Sofia Williams", "207", "13 Jun", "17 Jun", "3", "Pending"),
-        new("BK-2045", "Noah Thompson", "118", "14 Jun", "16 Jun", "2", "Confirmed")
+        new("BK-2048", "Amelia Rodriguez", "304",
+            today.AddDays(1), today.AddDays(4), 2, "Confirmed"),
+
+        new("BK-2047", "Marcus Chen", "512",
+            today.AddDays(1), today.AddDays(3), 1, "Confirmed"),
+
+        new("BK-2046", "Sofia Williams", "207",
+            today.AddDays(2), today.AddDays(6), 3, "Pending"),
+
+        new("BK-2045", "Noah Thompson", "118",
+            today.AddDays(3), today.AddDays(5), 2, "Confirmed")
     };
+
+    AllBookings = new ObservableCollection<BookingPreview>(
+        RecentBookings.Concat(new[]
+        {
+            new BookingPreview(
+                "BK-2044", "Olivia Martin", "401",
+                today.AddDays(4), today.AddDays(7), 2, "Confirmed"),
+
+            new BookingPreview(
+                "BK-2043", "Ethan Brown", "220",
+                today.AddDays(5), today.AddDays(8), 4, "Pending")
+        }));
+
+    RebuildRoomGroups();
+}
+    public ObservableCollection<BookingPreview> RecentBookings { get; } 
     public ObservableCollection<BookingPreview> AllBookings { get; }
     public ObservableCollection<RoomModel> Rooms { get; } = new()
     {
@@ -34,15 +61,7 @@ public sealed class PrototypeData
         new("ACC-002", "ava.richardson", "Ava Richardson", "Receptionist", "Active"),
         new("ACC-003", "sofia.patel", "Sofia Patel", "Manager", "Active")
     };
-    public PrototypeData()
-    {
-        AllBookings = new ObservableCollection<BookingPreview>(RecentBookings)
-        {
-            new("BK-2044", "Olivia Martin", "401", "15 Jun", "18 Jun", "2", "Confirmed"),
-            new("BK-2043", "Ethan Brown", "220", "16 Jun", "19 Jun", "4", "Pending")
-        };
-        RebuildRoomGroups();
-    }
+
     public void RebuildRoomGroups()
     {
         RoomGroups.Clear();
@@ -50,7 +69,14 @@ public sealed class PrototypeData
             RoomGroups.Add(new RoomTypeGroup(group.Key, group.ToList()));
     }
 
-    public sealed record BookingPreview(string Reference, string Guest, string Room, string CheckIn, string CheckOut, string Guests, string Status);
+    public sealed record BookingPreview(
+        string Reference,
+        string Guest,
+        string Room,
+        DateTime CheckIn,
+        DateTime CheckOut,
+        int Guests,
+        string Status);
     public sealed record RoomModel(string Number, string Floor, string Type, string Capacity, decimal Price, string Status);
     public sealed record EmployeeModel(string Id, string Name, string Phone, string Email, string Position, string Status);
     public sealed record AccountModel(string Id, string Username, string Employee, string Role, string Status);

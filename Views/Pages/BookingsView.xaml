@@ -44,16 +44,16 @@
                          Text="{Binding ReservationSearch, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <ComboBox Width="145"
-                          Margin="12,0,0,0"
-                          Padding="9"
-                          SelectedIndex="0">
-                    <ComboBoxItem>All statuses</ComboBoxItem>
-                    <ComboBoxItem>Confirmed</ComboBoxItem>
-                    <ComboBoxItem>Pending</ComboBoxItem>
-                    <ComboBoxItem>Cancelled</ComboBoxItem>
-                </ComboBox>
+                    Margin="12,0,0,0"
+                    Padding="9"
+                    ItemsSource="{Binding StatusOptions}"
+                    SelectedItem="{Binding SelectedStatus,
+                    UpdateSourceTrigger=PropertyChanged}" />
 
-                <DatePicker Width="145" Margin="12,0,0,0"/>
+                <DatePicker Width="145"
+                    Margin="12,0,0,0"
+                    SelectedDate="{Binding SelectedCheckInDate,
+                    UpdateSourceTrigger=PropertyChanged}" />
 
                 <Button DockPanel.Dock="Right"
                         Content="Export list"
@@ -103,9 +103,61 @@
                             </Grid>
                         </Border>
 
-                        <!--<ItemsControl x:Name="ReservationGrid"
-                                      ItemsSource="{Binding AllBookings}"
-                                      ItemTemplate="{StaticResource BookingRow}"/>-->
+
+                        <ItemsControl ItemsSource="{Binding FilteredBookings}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{StaticResource LineBrush}"
+                                        BorderThickness="0,0,0,1"
+                                        Padding="12,14">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="1.6*"/>
+                                                <ColumnDefinition Width="90"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="95"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Text="{Binding Reference}" VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="1"
+                                                Text="{Binding Guest}"
+                                                VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="2"
+                                                Text="{Binding Room}"
+                                                VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="3"
+                                                Text="{Binding CheckIn, StringFormat={}{0:dd MMM yyyy}}"
+                                                VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="4"
+                                                Text="{Binding CheckOut,StringFormat={}{0:dd MMM yyyy}}"
+                                                VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="5"
+                                                Text="{Binding Guests}"
+                                                VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="6"
+                                                Text="{Binding Status}"
+                                                VerticalAlignment="Center"
+                                                FontWeight="SemiBold"/>
+
+                                            <TextBlock Grid.Column="7"
+                                                Text="—"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </StackPanel>
                 </Border>
             </StackPanel>

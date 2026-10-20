@@ -1,69 +1,102 @@
+
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using HotelManagementSystem.Models;
 
 namespace HotelManagementSystem.ViewModels.Pages;
 
-public partial class BookingsViewModel:ViewModelBase
+public partial class BookingsViewModel : ViewModelBase
 {
-    public BookingsViewModel()
-    {
-    }
-   
+    private readonly PrototypeData _prototypeData;
+
+    public ObservableCollection<string> StatusOptions { get; } =
+    [
+        "All statuses",
+        "Confirmed",
+        "Pending",
+        "Cancelled"
+    ];
+
+    public ObservableCollection<PrototypeData.BookingPreview> FilteredBookings { get; } = [];
 
     [ObservableProperty]
-    private object? selectedBooking;
+    private PrototypeData.BookingPreview? selectedBooking;
+
     [ObservableProperty]
-    private string searchText = string.Empty;
+    private string reservationSearch = string.Empty;
+
+    [ObservableProperty]
+    private string selectedStatus = "All statuses";
+
+    [ObservableProperty]
+    private DateTime? selectedCheckInDate;
+
     [ObservableProperty]
     private bool isLoading;
+
     [ObservableProperty]
     private string? errorMessage;
 
+    public BookingsViewModel(PrototypeData prototypeData)
+    {
+        _prototypeData = prototypeData;
 
-    //[RelayCommand]
-    //private void ReservationStatus()
-    //{
-    //    if (_prototypeData.AllBookings.Count == 0) return;
-    //    var current = _prototypeData.AllBookings[0];
-    //    var next = current.Status switch
-    //    {
-    //        "Reserved" => "Checked In", "Checked In" => "Checked Out", "Checked Out" => "Cancelled", _ => "Reserved"
-    //    };
-    //    _prototypeData.AllBookings[0] = current with { Status = next };
-    //    MessageBox.Show($"{current.Guest} is now marked as {next} in the prototype.", "Reservation status", MessageBoxButton.OK, MessageBoxImage.Information);
-    //}
+        _prototypeData.AllBookings.CollectionChanged +=
+            OnBookingsCollectionChanged;
 
-    //[RelayCommand]
-    //private void NewBooking() => OpenReservationDialog(null);   
+        RefreshBookings();
+    }
 
-    //private void OpenReservationDialog(RoomModel? preselectedRoom)
-    //{
-    //}
+    partial void OnReservationSearchChanged(string value)
+        => RefreshBookings();
 
-    //partial void OnReservationSearchChanged(string value)
-    //{
-    //    FilterReservations();
-    //}
+    partial void OnSelectedStatusChanged(string value)
+        => RefreshBookings();
 
-    //partial void OnBookingsCollectionChanged(
-    //    object? sender,
-    //    NotifyCollectionChangedEventArgs e)
-    //{
-    //    RefreshBookings();
-    //}
+    partial void OnSelectedCheckInDateChanged(DateTime? value)
+        => RefreshBookings();
 
-    //private void RefreshBookings()
-    //{
-    //    var text = ReservationSearch.Trim();
-    //    var results = _prototypeData.AllBookings.Where(booking => 
-    //        string.IsNullOrWhiteSpace(text)
-    //        || booking.Reference.Contains(text, StringComparison.OrdinalIgnoreCase)
-    //        || booking.Guest.Contains(text, StringComparison.OrdinalIgnoreCase));
-    //    FilteredBooking.Clear();
-    //    foreach(var booking in results)
-    //    {
-    //        FilteredBooking.Add(booking);
-    //    }
-        
-    //}
+    private void OnBookingsCollectionChanged(
+        object? sender,
+        NotifyCollectionChangedEventArgs e)
+    {
+        RefreshBookings();
+    }
+
+    private void RefreshBookings()
+    {
+        var search = ReservationSearch.Trim();
+
+        var results = _prototypeData.AllBookings.Where(booking =>
+            (string.IsNullOrWhiteSpace(search)
+             || booking.Reference.Contains(
+                 search, StringComparison.OrdinalIgnoreCase)
+             || booking.Guest.Contains(
+                 search, StringComparison.OrdinalIgnoreCase)
+             || booking.Room.Contains(
+                 search, StringComparison.OrdinalIgnoreCase))
+            &&
+            (SelectedStatus == "All statuses"
+             || booking.Status == SelectedStatus)
+            &&
+            (!SelectedCheckInDate.HasValue
+             || booking.CheckIn.Date == SelectedCheckInDate.Value.Date))
+            .ToList();
+
+        FilteredBookings.Clear();
+
+        foreach (var booking in results)
+        {
+            FilteredBookings.Add(booking);
+        }
+    }
+
+    [RelayCommand]
+    private void NewBooking()
+    {
+        ErrorMessage =
+            "Reservation creation will be implemented in the next step.";
+    }
 }
