@@ -11,7 +11,7 @@ public enum PageKey
     //Rooms,
     //Employees,
     //Accounts,
-    //Settings
+    Settings
 }
 
 public partial class ShellViewModel:ViewModelBase
@@ -28,7 +28,7 @@ public partial class ShellViewModel:ViewModelBase
         //PageKey.Rooms => "Operations / Room Management",
         //PageKey.Employees => "Administration / Employee Management",
         //PageKey.Accounts => "Administration / Account Management",
-        //PageKey.Settings => "Workspace / Settings",
+        PageKey.Settings => "Workspace / Settings",
         _ => "Overview / Dashboard"
     };   
 

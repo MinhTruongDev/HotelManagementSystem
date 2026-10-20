@@ -1,0 +1,53 @@
+<UserControl x:Class="HotelManagementSystem.Views.Pages.SettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="{DynamicResource PageBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Settings" Style="{StaticResource PageTitle}"/>
+        <TextBlock Grid.Row="1" Text="Personalize your StayWise workspace." Foreground="{StaticResource MutedBrush}" Margin="0,0,0,25"/>
+        <Border Grid.Row="2" Style="{StaticResource Card}">
+            <StackPanel>
+                <TextBlock Text="User profile" Style="{StaticResource SectionTitle}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Display name" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Style="{StaticResource Field}" Text="Jordan Smith"/>
+                </Grid>
+                <Grid Margin="0,14,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Email address" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Style="{StaticResource Field}" Text="jordan.smith@staywise.com"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="3" Style="{StaticResource Card}">
+            <StackPanel>
+                <TextBlock Text="Application preferences" Style="{StaticResource SectionTitle}"/>
+                <CheckBox Content="Show arrival reminders on the dashboard" IsChecked="True" Margin="0,0,0,15"/>
+                <CheckBox Content="Play a sound for new reservations" Margin="0,0,0,15"/>
+                <CheckBox Content="Use compact table density"/>
+            </StackPanel>
+        </Border>
+        <TextBlock Grid.Row="4" Text="Appearance" Style="{StaticResource SectionTitle}" Margin="0,8,0,10"/>
+        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,0,0,18">
+            <Button Content="Light mode" Style="{StaticResource QuietButton}"  Margin="0,0,10,0"/>
+            <Button Content="Dark mode" Style="{StaticResource QuietButton}"/>
+        </StackPanel>
+        <Button Grid.Row="6" Content="Save preferences" Style="{StaticResource PrimaryButton}"  Width="145" HorizontalAlignment="Left"  />
+    </Grid>
+</UserControl>

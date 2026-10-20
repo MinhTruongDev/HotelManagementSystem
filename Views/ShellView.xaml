@@ -25,11 +25,11 @@
 
         <DataTemplate DataType="{x:Type pagevm:AccountsViewModel}">
             <views:AccountsView />
-        </DataTemplate>
+        </DataTemplate>-->
 
         <DataTemplate DataType="{x:Type pagevm:SettingsViewModel}">
             <views:SettingsView />
-        </DataTemplate>-->
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid x:Name="ShellPanel">
@@ -174,14 +174,14 @@
                                 Tag="Accounts"
                                 Style="{StaticResource NavButton}"
                                 Command="{Binding NavigateCommand}"
-                                CommandParameter="{x:Static vm:PageKey.Accounts}" />
+                                CommandParameter="{x:Static vm:PageKey.Accounts}" />-->
 
                         <Button Content="Settings"
                                 Foreground="#F3F6FC"
                                 Tag="Settings"
                                 Style="{StaticResource NavButton}"
                                 Command="{Binding NavigateCommand}"
-                                CommandParameter="{x:Static vm:PageKey.Settings}" />-->
+                                CommandParameter="{x:Static vm:PageKey.Settings}" />
                     </StackPanel>
                 </DockPanel>
             </Border>

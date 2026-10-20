@@ -51,6 +51,7 @@ namespace HotelManagementSystem
             // Page ViewModels.
             services.AddSingleton<DashboardViewModel>();
             services.AddSingleton<BookingsViewModel>();
+            services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<PrototypeData>();
 
             services.AddSingleton<IReservationService, PrototypeReservationService>();

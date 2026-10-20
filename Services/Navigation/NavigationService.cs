@@ -28,7 +28,7 @@ public sealed class NavigationService : INavigationService
             //PageKey.Rooms => _serviceProvider.GetRequiredService<RoomsViewModel>(),
             //PageKey.Employees => _serviceProvider.GetRequiredService<EmployeesViewModel>(),
             //PageKey.Accounts => _serviceProvider.GetRequiredService<AccountsViewModel>(),
-            //PageKey.Settings => _serviceProvider.GetRequiredService<SettingsViewModel>(),
+            PageKey.Settings => _serviceProvider.GetRequiredService<SettingsViewModel>(),
             _ => throw new ArgumentOutOfRangeException(nameof(page), page, "Unknown navigation target.")
         };
 
