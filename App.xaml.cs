@@ -1,10 +1,13 @@
 ﻿
 using HotelManagementSystem.Models;
+using HotelManagementSystem.Services.Dialogs;
 using HotelManagementSystem.Services.Navigation;
 using HotelManagementSystem.Services.Reservations;
 using HotelManagementSystem.ViewModels;
+using HotelManagementSystem.ViewModels.Dialogs;
 using HotelManagementSystem.ViewModels.Pages;
 using HotelManagementSystem.Views;
+using HotelManagementSystem.Views.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -55,12 +58,14 @@ namespace HotelManagementSystem
             services.AddSingleton<PrototypeData>();
 
             services.AddSingleton<IReservationService, PrototypeReservationService>();
+            services.AddSingleton<IDialogService, DialogService>();
+            services.AddTransient<ReservationEditorViewModel>();
+            services.AddTransient<ReservationEditorDialog>();
 
             //services.AddSingleton<RoomsViewModel>();
             //services.AddSingleton<EmployeesViewModel>();
             //services.AddSingleton<AccountsViewModel>();
             //services.AddSingleton<SettingsViewModel>();
-
         }
 
         protected override void OnExit(ExitEventArgs e)

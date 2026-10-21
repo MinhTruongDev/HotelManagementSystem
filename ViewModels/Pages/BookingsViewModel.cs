@@ -1,15 +1,17 @@
 
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HotelManagementSystem.Models;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using HotelManagementSystem.Services.Dialogs;
 
 namespace HotelManagementSystem.ViewModels.Pages;
 
 public partial class BookingsViewModel : ViewModelBase
 {
     private readonly PrototypeData _prototypeData;
+    private readonly IDialogService _dialogService;
 
     public ObservableCollection<string> StatusOptions { get; } =
     [
@@ -39,9 +41,12 @@ public partial class BookingsViewModel : ViewModelBase
     [ObservableProperty]
     private string? errorMessage;
 
-    public BookingsViewModel(PrototypeData prototypeData)
+    public BookingsViewModel(
+        PrototypeData prototypeData,
+        IDialogService dialogService)
     {
         _prototypeData = prototypeData;
+        _dialogService = dialogService;
 
         _prototypeData.AllBookings.CollectionChanged +=
             OnBookingsCollectionChanged;
@@ -96,7 +101,7 @@ public partial class BookingsViewModel : ViewModelBase
     [RelayCommand]
     private void NewBooking()
     {
-        ErrorMessage =
-            "Reservation creation will be implemented in the next step.";
+        ErrorMessage = null;
+        _dialogService.ShowReservationDialog();
     }
 }
