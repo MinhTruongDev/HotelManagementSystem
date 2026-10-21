@@ -171,7 +171,10 @@ public sealed class PrototypeReservationService : IReservationService
 
         var overlapsBooking = _prototypeData.AllBookings.Any(booking =>
             booking.Room == room.Number &&
-            booking.Status != "Cancelled" &&
+            !string.Equals(
+                booking.Status,
+                "Cancelled",
+                StringComparison.OrdinalIgnoreCase) &&
             checkIn.Date < booking.CheckOut.Date &&
             checkOut.Date > booking.CheckIn.Date);
 

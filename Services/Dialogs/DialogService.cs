@@ -8,29 +8,27 @@ namespace HotelManagementSystem.Services.Dialogs;
 
 public sealed class DialogService : IDialogService
 {
-    private readonly IServiceProvider _serviceProvider;
+    private readonly IReservationEditorDialogFactory _dialogFactory;
 
-    public DialogService(IServiceProvider serviceProvider)
+    public DialogService(IReservationEditorDialogFactory dialogFactory)
     {
-        _serviceProvider = serviceProvider;
+        _dialogFactory = dialogFactory;
     }
 
     public BookingPreview? ShowReservationDialog()
     {
-        var owner = Application.Current.MainWindow
-            ?? throw new InvalidOperationException(
-                "The application's main window has not been created.");
+        var dialog = _dialogFactory.Create();
 
-        var viewModel = _serviceProvider
-            .GetRequiredService<ReservationEditorViewModel>();
+        var owner = Application.Current.MainWindow;
 
-        var dialog = new ReservationEditorDialog(viewModel)
+        if (owner is not null)
         {
-            Owner = owner
-        };
+            dialog.Owner = owner;
+        }
 
         return dialog.ShowDialog() == true
-            ? viewModel.CreatedBooking
+            ? ((ReservationEditorViewModel)dialog.DataContext)
+                .CreatedBooking
             : null;
     }
 }

@@ -12,6 +12,7 @@ public partial class ReservationEditorViewModel : ViewModelBase
     private readonly IReservationService _reservationService;
 
     public ObservableCollection<RoomModel> AvailableRooms { get; } = [];
+    public ObservableCollection<int> GuestCountOptions { get; } = new(Enumerable.Range(1, 6));
 
     [ObservableProperty]
     private string guestName = string.Empty;

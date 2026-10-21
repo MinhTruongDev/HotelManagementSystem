@@ -40,7 +40,6 @@ namespace HotelManagementSystem
 
         private static void ConfigureServices(IServiceCollection services)
         {
-            // Existing prototype data used during development.
             services.AddSingleton<PrototypeData>();
 
             // Navigation.
@@ -55,17 +54,19 @@ namespace HotelManagementSystem
             services.AddSingleton<DashboardViewModel>();
             services.AddSingleton<BookingsViewModel>();
             services.AddSingleton<SettingsViewModel>();
-            services.AddSingleton<PrototypeData>();
 
+            // Reservation services.
             services.AddSingleton<IReservationService, PrototypeReservationService>();
-            services.AddSingleton<IDialogService, DialogService>();
             services.AddTransient<ReservationEditorViewModel>();
-            services.AddTransient<ReservationEditorDialog>();
 
-            //services.AddSingleton<RoomsViewModel>();
-            //services.AddSingleton<EmployeesViewModel>();
-            //services.AddSingleton<AccountsViewModel>();
-            //services.AddSingleton<SettingsViewModel>();
+            // Dialog services and factory.
+            services.AddSingleton<IDialogService, DialogService>();
+
+            services.AddTransient<Func<ReservationEditorViewModel>>(provider =>
+                () => provider.GetRequiredService<ReservationEditorViewModel>());
+
+            services.AddTransient<IReservationEditorDialogFactory,
+                ReservationEditorDialogFactory>();
         }
 
         protected override void OnExit(ExitEventArgs e)
